@@ -13,7 +13,9 @@ class TranslateController < ApplicationController
       @translate << JSON.parse(HTTParty.get(URI.escape("http://mymemory.translated.net/api/get?q=#{part}&langpair=en|de")).body)['responseData']['translatedText']
     end
 
-    @translate.join(' ')
+    @translate = @translate.join(' ')
+
+    system("python3 tree.py #{@translate}")
     render :index
   end
 end
